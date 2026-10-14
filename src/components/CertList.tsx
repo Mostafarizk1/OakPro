@@ -4,8 +4,8 @@ import { useLocale, useTranslations } from "next-intl";
 import { Certification, certStatus } from "@/content/certifications";
 import { X, FileText } from "lucide-react";
 
-const fmt = (iso: string | undefined, locale: string) =>
-  iso ? new Intl.DateTimeFormat(locale === "ar" ? "ar-SA-u-nu-latn-ca-gregory" : "en-GB", { day: "2-digit", month: "2-digit", year: "numeric" }).format(new Date(iso)) : "—";
+// Deterministic dd/mm/yyyy (Latin digits) — Intl output differs between Node and browsers and caused a hydration mismatch.
+const fmt = (iso: string | undefined) => (iso ? iso.split("-").reverse().join("/") : "—");
 
 export default function CertList({ items, limit, headingLevel = 3 }: { items: Certification[]; limit?: number; headingLevel?: 2 | 3 }) {
   const H = `h${headingLevel}` as "h2" | "h3";
@@ -41,8 +41,8 @@ export default function CertList({ items, limit, headingLevel = 3 }: { items: Ce
               <p className="text-sm text-muted">{locale === "ar" ? c.issuer_ar : c.issuer_en}</p>
               <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm">
                 {c.licenseNumber && <><dt className="text-muted">{(locale === "ar" ? c.numberLabel_ar : c.numberLabel_en) ?? t("number")}</dt><dd className="font-medium"><bdi>{c.licenseNumber}</bdi></dd></>}
-                {c.issueDate && <><dt className="text-muted">{t("issued")}</dt><dd>{fmt(c.issueDate, locale)}</dd></>}
-                {c.expiryDate && <><dt className="text-muted">{t("expires")}</dt><dd>{fmt(c.expiryDate, locale)}</dd></>}
+                {c.issueDate && <><dt className="text-muted">{t("issued")}</dt><dd><bdi>{fmt(c.issueDate)}</bdi></dd></>}
+                {c.expiryDate && <><dt className="text-muted">{t("expires")}</dt><dd><bdi>{fmt(c.expiryDate)}</bdi></dd></>}
                 {(locale === "ar" ? c.scope_ar : c.scope_en) && <><dt className="text-muted">{t("scope")}</dt><dd>{locale === "ar" ? c.scope_ar : c.scope_en}</dd></>}
               </dl>
               <div className="mt-auto pt-2 flex flex-wrap gap-3">

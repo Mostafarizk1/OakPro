@@ -13,8 +13,8 @@ import "../globals.css";
 
 const lama = localFont({
   src: [
-    { path: "../../fonts/LamaSans-Regular.otf", weight: "400", style: "normal" },
-    { path: "../../fonts/LamaSans-Bold.otf", weight: "700", style: "normal" },
+    { path: "../../fonts/LamaSans-Regular.woff2", weight: "400", style: "normal" },
+    { path: "../../fonts/LamaSans-Bold.woff2", weight: "700", style: "normal" },
   ],
   variable: "--font-lama",
   display: "swap",
