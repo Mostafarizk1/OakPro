@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local
+/reports/
+/fonts-src/
+tsconfig.tsbuildinfo
