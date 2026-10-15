@@ -1,7 +1,7 @@
 // Single place for contact data — the client may change these.
 export const site = {
   name: { ar: "أوك برو", en: "Oak Pro" },
-  domain: "https://oakprosa.com",
+  domain: "https://oakpro.sa",
   phones: ["+966 54 656 0925", "+966 54 751 6224"],
   email: "sales@oakprosa.com",
   address: { ar: "الدمام، المنطقة الشرقية، المملكة العربية السعودية", en: "Dammam, Eastern Province, Saudi Arabia" },
