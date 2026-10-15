@@ -4,11 +4,14 @@ import { Link } from "@/i18n/navigation";
 import { about, highlights, seo } from "@/content/data";
 import { visibleCertifications } from "@/content/certifications";
 import { site } from "@/config/site";
+import { getBlogCards } from "@/lib/blog-cards";
 import SectionHead from "@/components/SectionHead";
 import HeroMark from "@/components/HeroMark";
 import ServiceCards from "@/components/ServiceCards";
 import CertList from "@/components/CertList";
 import { BlogCards, ContactSection, CtaBand, StepsSection, TrustBar, WhySection } from "@/components/sections";
+
+export const revalidate = 60;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -21,6 +24,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   setRequestLocale(locale);
   const l = locale as "ar" | "en";
   const t = await getTranslations();
+  const blog = await getBlogCards(l, 3);
 
   return (
     <>
@@ -100,14 +104,16 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <section className="section"><div className="container-x"><SectionHead eyebrow={t("sections.projects.eyebrow")} title={t("sections.projects.title")} text={t("sections.projects.text")} /></div></section>
       )}
 
-      {/* 11. Blog */}
+      {/* 11. Blog (hidden when the database is connected but has no published posts yet) */}
+      {(!blog.fromDb || blog.items.length > 0) && (
       <section className="section">
         <div className="container-x">
           <SectionHead eyebrow={t("sections.blog.eyebrow")} title={t("sections.blog.title")} text={t("sections.blog.text")} />
-          <BlogCards />
+          <BlogCards items={blog.items} />
           <div className="mt-8"><Link href="/blog" className="btn btn-outline">{t("cta.allPosts")}</Link></div>
         </div>
       </section>
+      )}
 
       {/* 12. CTA band */}
       <CtaBand />

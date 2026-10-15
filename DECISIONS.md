@@ -27,6 +27,14 @@ Last updated: 2026-10-14. This file records what was decided during the build, a
 
 - **Commercial registration added** (certificate no. 7051245335, issued 19/08/2025, Ministry of Commerce, LLC single person, status active). The certificate has no expiry date, so the chip shows "ساري" from the document's stated active status (`active: true`). File: `public/certs/commercial-registration.pdf` (only a public verification page + QR; no sensitive data).
 
+## A3. Admin dashboard (2026-10-15)
+- `/admin` (Arabic RTL, noindex): Supabase email+password login, post list, editor (Tiptap: H2/H3, bold, lists, quote, links, inline images), draft/publish, AR/EN linking for hreflang, live SEO checklist.
+- Images: browser shrinks >1.5MB to ≤2400px (Vercel body limit 4.5MB) → server converts to WebP q78 (cover 1600px, inline 1200px), strips EXIF, makes a 1200×630 JPEG for Open Graph, uploads to public bucket `blog`. Site serves via next/image (AVIF/WebP, lazy, 1-year cache).
+- Public blog reads from Supabase (ISR 60s + on-demand revalidation on save); falls back to the 3 static placeholders while Supabase env vars are missing. Home hides the blog section if DB is connected but empty.
+- Article pages: canonical, hreflang between linked translations, Open Graph/Twitter, Article JSON-LD, sitemap includes published posts.
+- HTML is sanitized server-side (no scripts/styles/handlers; https-only images).
+- **Needs setup** (see `ADMIN-SETUP.md`): create Supabase project, run `supabase/schema.sql`, disable public sign-ups, add admin user, set the 2 env vars in Vercel.
+
 ## B. Pending — to add later
 
 | Item | Where to change |

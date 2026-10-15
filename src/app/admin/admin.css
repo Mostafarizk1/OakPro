@@ -1,0 +1,19 @@
+/* Article body typography — shared by the editor and the public article page */
+.article-body { font-size: 1.125rem; line-height: 1.95; color: var(--ink); }
+.article-body > * + * { margin-top: 1.1em; }
+.article-body h2 { font-size: 1.65rem; margin-top: 1.9em; }
+.article-body h3 { font-size: 1.3rem; margin-top: 1.6em; }
+.article-body ul, .article-body ol { padding-inline-start: 1.6em; }
+.article-body ul { list-style: none; }
+.article-body ul > li { position: relative; }
+.article-body ul > li::before { content: ""; position: absolute; inset-inline-start: -1.25em; top: .8em; width: 7px; height: 7px; background: var(--brand-primary); transform: rotate(45deg); }
+.article-body ol { list-style: decimal; }
+.article-body a { color: var(--brand-primary); text-decoration: underline; text-underline-offset: 3px; }
+.article-body blockquote { border-inline-start: 4px solid var(--brand-primary); padding-inline-start: 1em; color: var(--muted-foreground); }
+.article-body img { max-width: 100%; height: auto; border-radius: 4px; }
+.article-body hr { border: 0; border-top: 1px solid var(--border); }
+
+/* Tiptap editor surface */
+.tiptap { outline: none; min-height: 360px; padding: 16px; }
+.tiptap p.is-editor-empty:first-child::before { content: attr(data-placeholder); color: #8a949e; float: inline-start; height: 0; pointer-events: none; }
+.tiptap img.ProseMirror-selectednode { outline: 3px solid var(--brand-primary); }

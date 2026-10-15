@@ -1,7 +1,9 @@
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { site, telLink, whatsappLink } from "@/config/site";
-import { blogPosts, steps, why } from "@/content/data";
+import { steps, why } from "@/content/data";
+import type { CardItem } from "@/lib/blog-cards";
+import Image from "next/image";
 import SectionHead from "./SectionHead";
 import ContactForm from "./ContactForm";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
@@ -68,16 +70,22 @@ export function StepsSection() {
   );
 }
 
-export function BlogCards({ limit = 3, exclude, headingLevel = 3 }: { limit?: number; exclude?: string; headingLevel?: 2 | 3 }) {
-  const H = `h${headingLevel}` as "h2" | "h3";
+export function BlogCards({ items, headingLevel = 3 }: { items: CardItem[]; headingLevel?: 2 | 3 }) {
   const t = useTranslations("cta");
   const locale = useLocale() as "ar" | "en";
-  const posts = blogPosts[locale].filter((p) => p.slug !== exclude).slice(0, limit);
+  const H = `h${headingLevel}` as "h2" | "h3";
+  if (items.length === 0) return <p className="text-muted">{locale === "ar" ? "سيتم نشر المقالات قريباً." : "Articles are coming soon."}</p>;
   return (
     <div className="grid gap-5 md:grid-cols-3">
-      {posts.map((p) => (
+      {items.map((p, i) => (
         <article key={p.slug} className="card flex flex-col overflow-hidden">
-          <div className="placeholder-img rounded-none border-0 border-b aspect-[16/9]">[{locale === "ar" ? "صورة المقال" : "Article image"}]</div>
+          {p.cover_url ? (
+            <Link href={`/blog/${p.slug}`} tabIndex={-1} aria-hidden className="block aspect-[16/9] relative bg-surface-muted">
+              <Image src={p.cover_url} alt={p.cover_alt ?? ""} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" priority={i === 0 && false} />
+            </Link>
+          ) : (
+            <div className="placeholder-img rounded-none border-0 border-b aspect-[16/9]">[{locale === "ar" ? "صورة المقال" : "Article image"}]</div>
+          )}
           <div className="p-6 flex flex-col gap-3 flex-1">
             <H className="text-lg"><Link href={`/blog/${p.slug}`} className="hover:text-primary">{p.title}</Link></H>
             <p className="text-muted text-[15px]">{p.excerpt}</p>

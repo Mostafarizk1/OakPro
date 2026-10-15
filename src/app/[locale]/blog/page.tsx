@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { seo } from "@/content/data";
+import { getBlogCards } from "@/lib/blog-cards";
 import PageHero from "@/components/PageHero";
 import { BlogCards, CtaBand } from "@/components/sections";
+
+export const revalidate = 60;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -14,10 +17,11 @@ export default async function Blog({ params }: { params: Promise<{ locale: strin
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("blog");
+  const { items } = await getBlogCards(locale as "ar" | "en");
   return (
     <>
       <PageHero eyebrow={t("title")} title={t("title")} text={t("text")} />
-      <section className="section"><div className="container-x"><BlogCards limit={50} headingLevel={2} /></div></section>
+      <section className="section"><div className="container-x"><BlogCards items={items} headingLevel={2} /></div></section>
       <CtaBand />
     </>
   );
