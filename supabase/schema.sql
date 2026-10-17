@@ -49,3 +49,9 @@ drop policy if exists "admins update blog images" on storage.objects;
 create policy "admins update blog images" on storage.objects for update to authenticated using (bucket_id = 'blog');
 drop policy if exists "admins delete blog images" on storage.objects;
 create policy "admins delete blog images" on storage.objects for delete to authenticated using (bucket_id = 'blog');
+
+-- Make the table reachable through the Data API even if "Automatically expose new tables" is turned off.
+-- Access is still limited by the RLS policies above.
+grant usage on schema public to anon, authenticated;
+grant select on public.posts to anon;
+grant select, insert, update, delete on public.posts to authenticated;
