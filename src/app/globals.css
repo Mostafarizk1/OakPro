@@ -61,3 +61,20 @@ h1, h2, h3, h4 { line-height: var(--leading-heading); font-weight: 700; }
 .field[aria-invalid="true"] { border-color: #b3261e; }
 label.lbl { display: block; font-size: var(--text-sm); font-weight: 500; margin-bottom: 4px; }
 .err { color: #b3261e; font-size: var(--text-sm); margin-top: 4px; }
+
+/* Hero banner (image from the designer) + real CTA over it.
+   Positions are % of the image box, so they track the artwork at every width. */
+.hero-banner { position: relative; background: #eef7f7; }
+.hero-img { display: block; width: 100%; height: auto; max-width: 2400px; margin-inline: auto; }
+.hero-cta { min-height: 48px; padding-inline: 28px; font-size: 16px; white-space: nowrap; box-shadow: var(--shadow-2); }
+/* mobile: the artwork has no spare room, so the button sits right under the image on the artwork's white fade */
+@media (max-width: 767px) {
+  .hero-banner { background: #fdfefe; padding-bottom: 20px; }
+  .hero-cta { display: flex; width: fit-content; margin: 4px auto 0; }
+}
+@media (min-width: 768px) { .hero-cta { position: absolute; transform: translate(-50%, -50%); } }
+@media (min-width: 768px) {
+  .hero-banner[data-l="ar"] .hero-cta { left: 65.5%; top: 78%; }
+  .hero-banner[data-l="en"] .hero-cta { left: 69.7%; top: 91%; }
+}
+@media (min-width: 2400px) { .hero-banner { max-width: 2400px; margin-inline: auto; } }

@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title: { default: seo[l].homeTitle, template: `%s | ${site.name[l]}` },
     description: seo[l].homeDesc,
     alternates: { languages: { ar: "/ar", en: "/en", "x-default": "/ar" } },
-    openGraph: { siteName: site.name[l], locale: l === "ar" ? "ar_SA" : "en_US", type: "website", images: ["/opengraph-image"] },
+    openGraph: { siteName: site.name[l], locale: l === "ar" ? "ar_SA" : "en_US", type: "website", images: [{ url: `/banners/share-${l}.jpg`, width: 1200, height: 630, alt: site.name[l] }] },
   };
 }
 

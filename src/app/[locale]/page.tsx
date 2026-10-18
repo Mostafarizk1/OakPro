@@ -6,7 +6,7 @@ import { visibleCertifications } from "@/content/certifications";
 import { site } from "@/config/site";
 import { getBlogCards } from "@/lib/blog-cards";
 import SectionHead from "@/components/SectionHead";
-import HeroMark from "@/components/HeroMark";
+import HeroBanner from "@/components/HeroBanner";
 import ServiceCards from "@/components/ServiceCards";
 import CertList from "@/components/CertList";
 import { BlogCards, ContactSection, CtaBand, StepsSection, TrustBar, WhySection } from "@/components/sections";
@@ -28,24 +28,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
   return (
     <>
-      {/* 2. Hero */}
-      <section className="on-dark diamond-bg bg-ink text-white">
-        <div className="container-x py-16 lg:py-24 grid gap-12 lg:grid-cols-[7fr_5fr] items-center">
-          <div>
-            <p className="eyebrow"><i className="dia" aria-hidden />{t("hero.eyebrow")}</p>
-            <h1 className="mt-5 text-[34px] md:text-[48px] leading-[1.35]">{t("hero.title")}</h1>
-            <p className="mt-6 text-lg text-[#d9d9d6] max-w-[60ch]">{t("hero.text")}</p>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <Link href="/contact" className="btn btn-accent">{t("cta.quote")}</Link>
-              <Link href="/services" className="btn btn-ghost-light">{t("cta.services")}</Link>
-            </div>
-          </div>
-          {/* HERO_MEDIA_SLOT — swap for video/Lottie later */}
-          <div className="justify-self-center w-[220px] sm:w-[300px] lg:w-[380px] text-white">
-            <HeroMark className="w-full h-auto" />
-          </div>
-        </div>
-      </section>
+      {/* 2. Hero — designer banner (AR/EN) */}
+      <HeroBanner />
 
       {/* 3. Trust bar */}
       <TrustBar />
