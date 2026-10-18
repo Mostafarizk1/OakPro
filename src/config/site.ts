@@ -3,7 +3,7 @@ export const site = {
   name: { ar: "أوك برو", en: "Oak Pro" },
   domain: "https://oakpro.sa",
   phones: ["+966 54 656 0925", "+966 54 751 6224"],
-  email: "sales@oakprosa.com",
+  email: "info@oakpro.sa",
   address: { ar: "الدمام، المنطقة الشرقية، المملكة العربية السعودية", en: "Dammam, Eastern Province, Saudi Arabia" },
   hours: { ar: "من 8:00 صباحاً حتى 6:00 مساءً", en: "8:00 AM – 6:00 PM" },
   mapUrl: "https://maps.app.goo.gl/EQdKdAM1droKrnym6",

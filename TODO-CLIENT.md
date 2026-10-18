@@ -14,7 +14,7 @@
 
 ## Added during build (Checkpoint 2)
 - [x] Phones confirmed from the old site (0925 / 6224); Lama Sans font files taken from the client's old site (Regular + Bold used).
-- [ ] **RESEND_API_KEY** (+ verified sender domain) so the contact form emails sales@oakprosa.com. Without it production returns an error. Optional env: CONTACT_FROM, CONTACT_TO.
+- [ ] **RESEND_API_KEY** (+ verified sender domain) so the contact form emails info@oakpro.sa. Without it production returns an error. Optional env: CONTACT_FROM, CONTACT_TO.
 - [ ] Exact Google Maps pin (embed currently shows "Dammam" generally); LocalBusiness geo uses approximate Dammam city-centre coordinates — replace with the real office location.
 - [ ] Blog: real article texts, images, publish dates (dates and reading time are hidden until provided). Bodies live in src/content/blog/{ar,en}/*.md
 - [ ] Issuer logos (MWAN, National Center for Environmental Compliance, Eastern Province Municipality) for the trust bar/cards, if permitted.
