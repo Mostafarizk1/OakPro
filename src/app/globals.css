@@ -72,9 +72,10 @@ label.lbl { display: block; font-size: var(--text-sm); font-weight: 500; margin-
   .hero-banner { background: #fdfefe; padding-bottom: 20px; }
   .hero-cta { display: flex; width: fit-content; margin: 4px auto 0; }
 }
-@media (min-width: 768px) { .hero-cta { position: absolute; transform: translate(-50%, -50%); } }
+/* desktop: the button scales with the viewport (= with the artwork) so it never grows over the "oakpro.sa" line baked into the image */
+@media (min-width: 768px) { .hero-cta { position: absolute; transform: translate(-50%, -50%); min-height: 0; height: clamp(32px, 3.3vw, 54px); padding-inline: clamp(14px, 2vw, 30px); font-size: clamp(12px, 1.15vw, 17px); } }
 @media (min-width: 768px) {
-  .hero-banner[data-l="ar"] .hero-cta { left: 65.5%; top: 78%; }
-  .hero-banner[data-l="en"] .hero-cta { left: 69.7%; top: 91%; }
+  .hero-banner[data-l="ar"] .hero-cta { left: 65.5%; top: 76.3%; }
+  .hero-banner[data-l="en"] .hero-cta { left: 69.7%; top: 91.5%; }
 }
 @media (min-width: 2400px) { .hero-banner { max-width: 2400px; margin-inline: auto; } }
