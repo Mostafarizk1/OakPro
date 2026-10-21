@@ -65,8 +65,8 @@ export default function Header() {
               </Link>
             ))}
             <div className="flex flex-wrap gap-3 pt-4">
-              <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-primary flex-1">{t("cta.quote")}</Link>
               <Link href="/" locale={other} lang={other} className="btn btn-outline">{t("common.langSwitch")}</Link>
+              <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-primary flex-1">{t("cta.quote")}</Link>
             </div>
           </nav>
         </div>

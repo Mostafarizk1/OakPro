@@ -106,8 +106,7 @@ export default async function Post({ params }: { params: Promise<{ locale: strin
           <h2 className="text-xl">{t("blog.needService")}</h2>
           <p className="mt-2 text-muted">{t("blog.needText")}</p>
           <div className="mt-5 flex flex-wrap gap-3">
-            <Link href="/contact" className="btn btn-primary">{t("cta.quote")}</Link>
-            <a href={whatsappLink(l)} target="_blank" rel="noopener noreferrer" className="btn btn-outline">{t("cta.whatsapp")}</a>
+            <a href={whatsappLink(l)} target="_blank" rel="noopener noreferrer" className="btn btn-primary">{t("cta.whatsapp")}</a>
           </div>
         </aside>
 

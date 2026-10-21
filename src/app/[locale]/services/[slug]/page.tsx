@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { services } from "@/content/data";
+import { whatsappLink } from "@/config/site";
 import PageHero from "@/components/PageHero";
 import { CtaBand } from "@/components/sections";
 
@@ -34,7 +35,7 @@ export default async function ServicePage({ params }: { params: Promise<{ locale
             <p className="text-lg">{s.body}</p>
             {s.items.length > 0 && <ul className="dia-list mt-6 space-y-2 text-lg">{s.items.map((i) => <li key={i}>{i}</li>)}</ul>}
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/contact" className="btn btn-primary">{t("cta.quote")}</Link>
+              <a href={whatsappLink(l)} target="_blank" rel="noopener noreferrer" className="btn btn-primary">{t("cta.whatsapp")}</a>
               <Link href="/certifications" className="btn btn-outline">{t("nav.certifications")}</Link>
             </div>
           </div>
