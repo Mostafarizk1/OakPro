@@ -3,10 +3,11 @@ import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { formServices } from "@/content/data";
 import { normalizePhone, saudiMobile } from "@/lib/phone";
+import { track } from "@/lib/analytics";
 
 type Errors = Partial<Record<"name" | "mobile" | "email" | "service", string>>;
 
-export default function ContactForm() {
+export default function ContactForm({ source = "contact_page" }: { source?: string }) {
   const t = useTranslations("form");
   const locale = useLocale() as "ar" | "en";
   const [state, setState] = useState<"idle" | "sending" | "ok" | "error">("idle");
@@ -27,7 +28,7 @@ export default function ContactForm() {
     setState("sending");
     try {
       const r = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
-      setState(r.ok ? "ok" : "error");
+      if (r.ok) { setState("ok"); track("generate_lead", { link_location: source, language: locale, page_path: window.location.pathname }); } else setState("error");
     } catch { setState("error"); }
   }
 

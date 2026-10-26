@@ -7,6 +7,7 @@ import { site } from "@/config/site";
 import { getBlogCards } from "@/lib/blog-cards";
 import SectionHead from "@/components/SectionHead";
 import HeroBanner from "@/components/HeroBanner";
+import ContactButtons from "@/components/ContactButtons";
 import ServiceCards from "@/components/ServiceCards";
 import CertList from "@/components/CertList";
 import { BlogCards, ContactSection, CtaBand, StepsSection, TrustBar, WhySection } from "@/components/sections";
@@ -52,7 +53,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <div className="container-x grid gap-10 lg:grid-cols-2 items-start">
           <div>
             <SectionHead eyebrow={t("sections.about.eyebrow")} title={t("sections.about.title")} />
-            <Link href="/contact" className="btn btn-outline">{t("cta.contact")}</Link>
+            <ContactButtons loc="about_section" />
           </div>
           <div className="space-y-5 text-lg">
             {about[l].map((p, i) => <p key={i} className={i === 0 ? "font-medium text-ink" : "text-muted"}>{p}</p>)}
@@ -100,7 +101,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       )}
 
       {/* 12. CTA band */}
-      <CtaBand />
+      <CtaBand showQuote />
 
       {/* 13. Contact */}
       <ContactSection />

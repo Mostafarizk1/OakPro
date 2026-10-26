@@ -1,13 +1,13 @@
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { site, telLink, whatsappLink } from "@/config/site";
+import { site, telLink } from "@/config/site";
 import { steps, why } from "@/content/data";
 import type { CardItem } from "@/lib/blog-cards";
 import Image from "next/image";
 import SectionHead from "./SectionHead";
 import ContactForm from "./ContactForm";
+import ContactButtons from "./ContactButtons";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
-import WhatsAppIcon from "./WhatsAppIcon";
 
 export function TrustBar() {
   const t = useTranslations("trust");
@@ -97,9 +97,8 @@ export function BlogCards({ items, headingLevel = 3 }: { items: CardItem[]; head
   );
 }
 
-export function CtaBand() {
+export function CtaBand({ showQuote = false }: { showQuote?: boolean }) {
   const t = useTranslations();
-  const locale = useLocale() as "ar" | "en";
   return (
     <section className="on-dark bg-primary text-white">
       <div className="container-x py-14 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
@@ -107,16 +106,17 @@ export function CtaBand() {
           <h2 className="text-[26px] md:text-[32px]">{t("cta_band.title")}</h2>
           <p className="mt-3 text-lg">{t("cta_band.text")}</p>
         </div>
-        <div className="flex flex-wrap gap-3">
-          <a href={whatsappLink(locale)} target="_blank" rel="noopener noreferrer" className="btn btn-accent"><WhatsAppIcon size={20} />{t("cta.whatsapp")}</a>
-          <a href={telLink(site.phones[0])} className="btn btn-ghost-light"><Phone size={20} aria-hidden />{t("cta.call")}</a>
-        </div>
+        <ContactButtons loc={showQuote ? "final_section" : "cta_band"} tone="dark">
+          {/* The ONLY "request a quote" button on the site: jumps to the quote form (home page, last section) */}
+          {showQuote && <a href="#contact" className="btn btn-white" data-event="quote_request_click" data-loc="final_section" data-focus="#f-name">{t("cta.quote")}</a>}
+        </ContactButtons>
       </div>
     </section>
   );
 }
 
 export function ContactSection({ heading = true }: { heading?: boolean }) {
+  const source = heading ? "final_section" : "contact_page";
   const t = useTranslations();
   const locale = useLocale() as "ar" | "en";
   const rows = [
@@ -144,7 +144,7 @@ export function ContactSection({ heading = true }: { heading?: boolean }) {
             </div>
             <a href={site.mapUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline justify-self-start">{t("cta.openMap")}</a>
           </div>
-          <ContactForm />
+          <ContactForm source={source} />
         </div>
       </div>
     </section>

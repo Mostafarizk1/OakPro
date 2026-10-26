@@ -35,6 +35,16 @@ Last updated: 2026-10-14. This file records what was decided during the build, a
 - HTML is sanitized server-side (no scripts/styles/handlers; https-only images).
 - **Needs setup** (see `ADMIN-SETUP.md`): create Supabase project, run `supabase/schema.sql`, disable public sign-ups, add admin user, set the 2 env vars in Vercel.
 
+## A4. CTA unification + GA4 (2026-10-26) — supersedes the 2026-10-21 "quote in the menu" rule
+- Every contact CTA = **WhatsApp + direct call** (same number, `966546560925`; `callHref`/`whatsappLink` in `src/config/site.ts`). Used in: hero banner (desktop + mobile), header (+ mobile menu), about, service pages, blog article box, CTA band, two floating icons (call above WhatsApp).
+- **"اطلب عرض سعر" exists only in the last section of the home page** (CTA band). It jumps to the quote form (`#contact`) and focuses the name field. Removed from the header.
+- GA4 `G-TL9HZR2P1V` via next/script in the locale layout (once, site-wide; not in /admin). Hits are only sent from `oakpro.sa` / `www.oakpro.sa` (never localhost or *.vercel.app). `?ga_debug=1` enables DebugView.
+- Events (one delegated listener, `TrackClicks`): `whatsapp_click`, `phone_click`, `quote_request_click`; `generate_lead` fires only after the API returns success. Params: `link_location` (main_banner, floating_icons, header, about_section, about_page, service_page, blog_article, cta_band, final_section, contact_page, other), `language`, `page_path`.
+- To use `link_location` in GA4 reports: Admin → Custom definitions → create custom dimension (event scope, parameter `link_location`). Mark the four events as Key events.
+- Page views rely on GA4 Enhanced Measurement ("Page changes based on browser history events" must be ON, it is by default).
+- No cookie-consent banner added (design change); decide with the client whether PDPL requires one.
+- The two phone numbers shown as plain contact info (footer / contact section) remain tel: links to 0925 and 6224; every CTA button uses 0925.
+
 ## B. Pending — to add later
 
 | Item | Where to change |

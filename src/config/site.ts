@@ -19,3 +19,7 @@ export const site = {
 export const whatsappLink = (locale: "ar" | "en") =>
   `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(site.whatsappText[locale])}`;
 export const telLink = (p: string) => `tel:${p.replace(/\s/g, "")}`;
+
+// One approved number for every CTA: WhatsApp + direct call.
+export const callHref = "tel:+966546560925";
+export const analytics = { ga4: "G-TL9HZR2P1V" } as const;

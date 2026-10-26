@@ -4,10 +4,12 @@ import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
-import { site } from "@/config/site";
+import { site, analytics } from "@/config/site";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import WhatsAppFloat from "@/components/WhatsAppFloat";
+import FloatingContact from "@/components/FloatingContact";
+import TrackClicks from "@/components/TrackClicks";
+import Script from "next/script";
 import { seo } from "@/content/data";
 import "../globals.css";
 
@@ -65,8 +67,12 @@ export default async function LocaleLayout({ children, params }: { children: Rea
           <Header />
           <main id="main">{children}</main>
           <Footer />
-          <WhatsAppFloat />
+          <FloatingContact />
+          <TrackClicks />
         </NextIntlClientProvider>
+        {/* Google Analytics 4 — loaded once, site-wide. Real hits are only sent from oakpro.sa (not localhost / vercel previews). Add ?ga_debug=1 to a URL to see events in GA4 DebugView. */}
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${analytics.ga4}`} strategy="afterInteractive" />
+        <Script id="ga4-init" strategy="afterInteractive">{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag("js",new Date());if(/(^|\\.)oakpro\\.sa$/.test(location.hostname)){gtag("config","${analytics.ga4}",{debug_mode:/[?&]ga_debug=1/.test(location.search)});}`}</Script>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </body>
     </html>

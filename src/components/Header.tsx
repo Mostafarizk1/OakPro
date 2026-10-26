@@ -3,8 +3,10 @@ import { useState } from "react";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
-import { site } from "@/config/site";
-import { Menu, X, Download } from "lucide-react";
+import { site, callHref, whatsappLink } from "@/config/site";
+import { Menu, X, Download, Phone } from "lucide-react";
+import WhatsAppIcon from "./WhatsAppIcon";
+import ContactButtons from "./ContactButtons";
 
 export default function Header() {
   const t = useTranslations();
@@ -47,7 +49,8 @@ export default function Header() {
           <Link href="/" locale={other} hrefLang={other} aria-label={t("common.langSwitchLabel")} className="px-3 py-2 text-sm font-medium border border-line rounded-sm hover:border-primary hover:text-primary" lang={other}>
             {t("common.langSwitch")}
           </Link>
-          <Link href="/contact" className="btn btn-primary !min-h-[44px]">{t("cta.quote")}</Link>
+          <a href={whatsappLink(locale as "ar" | "en")} target="_blank" rel="noopener noreferrer" className="btn btn-primary !min-h-[44px]" data-event="whatsapp_click" data-loc="header"><WhatsAppIcon size={18} />{t("cta.whatsapp")}</a>
+          <a href={callHref} className="btn btn-outline !min-h-[44px] !px-3" aria-label={t("cta.callDirect")} title={t("cta.callDirect")} data-event="phone_click" data-loc="header"><Phone size={18} aria-hidden /></a>
         </div>
 
         <button type="button" className="xl:hidden p-2 -me-2 min-w-[44px] min-h-[44px] grid place-items-center" aria-expanded={open} aria-controls="mobile-nav" aria-label={open ? t("nav.close") : t("nav.menu")} onClick={() => setOpen((v) => !v)}>
@@ -64,9 +67,9 @@ export default function Header() {
                 {t(`nav.${n.k}`)}
               </Link>
             ))}
-            <div className="flex flex-wrap gap-3 pt-4">
-              <Link href="/" locale={other} lang={other} className="btn btn-outline">{t("common.langSwitch")}</Link>
-              <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-primary flex-1">{t("cta.quote")}</Link>
+            <div className="pt-4">
+              <Link href="/" locale={other} lang={other} className="btn btn-outline w-full">{t("common.langSwitch")}</Link>
+              <ContactButtons loc="header" className="mt-3 [&>a]:flex-1" />
             </div>
           </nav>
         </div>

@@ -1,10 +1,12 @@
 import { useLocale, useTranslations } from "next-intl";
-import { whatsappLink } from "@/config/site";
+import { callHref, whatsappLink } from "@/config/site";
+import WhatsAppIcon from "./WhatsAppIcon";
+import { Phone } from "lucide-react";
 
 /**
  * Hero = the designer's banner (separate AR / EN artwork, desktop 2400×1000 + mobile 1080×1350, WebP).
  * Smaller renditions (720w mobile, 1600w desktop) let the browser download only what the screen needs.
- * The artwork contains no button: the CTA is a real WhatsApp link (placed over the art on desktop, under it on mobile — see globals.css).
+ * The artwork contains no button: the CTAs are real WhatsApp + direct-call links (placed over the art on desktop, under it on mobile — see globals.css).
  * The real H1 + intro are kept as screen-reader/SEO text because the visible text lives inside the image.
  */
 export default function HeroBanner() {
@@ -21,10 +23,12 @@ export default function HeroBanner() {
       <p className="sr-only">{t("hero.text")}</p>
       <picture>
         <source media="(max-width: 767px)" srcSet={`${b}-mobile-720.webp 720w, ${b}-mobile.webp 1080w`} sizes="100vw" width={1080} height={1350} type="image/webp" />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={`${b}-desktop.webp`} srcSet={`${b}-desktop-1600.webp 1600w, ${b}-desktop.webp 2400w`} sizes="100vw" width={2400} height={1000} alt={alt} fetchPriority="high" decoding="async" className="hero-img" />
       </picture>
-      <a href={whatsappLink(l)} target="_blank" rel="noopener noreferrer" className="btn btn-primary hero-cta">{t("cta.whatsapp")}</a>
+      <div className="hero-cta-group">
+        <a href={whatsappLink(l)} target="_blank" rel="noopener noreferrer" className="btn btn-primary hero-cta" data-event="whatsapp_click" data-loc="main_banner"><WhatsAppIcon size={18} />{t("cta.whatsapp")}</a>
+        <a href={callHref} className="btn btn-outline hero-cta" data-event="phone_click" data-loc="main_banner"><Phone size={18} aria-hidden />{t("cta.callDirect")}</a>
+      </div>
     </section>
   );
 }

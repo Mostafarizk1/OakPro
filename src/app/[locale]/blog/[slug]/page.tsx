@@ -7,11 +7,12 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { blogPosts } from "@/content/data";
-import { site, whatsappLink } from "@/config/site";
+import { site } from "@/config/site";
 import { getAllPublishedSlugs, getPublishedPost, getSibling } from "@/lib/posts";
 import { getBlogCards } from "@/lib/blog-cards";
 import { supabaseConfigured } from "@/lib/supabase";
 import { BlogCards } from "@/components/sections";
+import ContactButtons from "@/components/ContactButtons";
 import "../../../admin/admin.css";
 
 export const revalidate = 60;
@@ -105,9 +106,7 @@ export default async function Post({ params }: { params: Promise<{ locale: strin
         <aside className="mt-12 card p-7 border-s-4 border-s-primary">
           <h2 className="text-xl">{t("blog.needService")}</h2>
           <p className="mt-2 text-muted">{t("blog.needText")}</p>
-          <div className="mt-5 flex flex-wrap gap-3">
-            <a href={whatsappLink(l)} target="_blank" rel="noopener noreferrer" className="btn btn-primary">{t("cta.whatsapp")}</a>
-          </div>
+          <ContactButtons loc="blog_article" className="mt-5" />
         </aside>
 
         <div className="mt-8 flex items-center gap-4 text-sm">
